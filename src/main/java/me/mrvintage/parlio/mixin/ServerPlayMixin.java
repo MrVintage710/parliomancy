@@ -30,15 +30,17 @@ public class ServerPlayMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "onCraftRequest", cancellable = true)
-    public void onCraftCheck(CraftRequestC2SPacket packet, CallbackInfo ci) {
-        System.out.println("Test");
-        ci.cancel();
-    }
+//    @Inject(at = @At("HEAD"), method = "onCraftRequest", cancellable = true)
+//    public void onCraftCheck(CraftRequestC2SPacket packet, CallbackInfo ci) {
+//        System.out.println("Test");
+//        ci.cancel();
+//    }
 
-    @Inject(at = @At("HEAD"), method = "onRecipeBookData", cancellable = true)
-    public void onRecipeBookData(RecipeBookDataC2SPacket packet, CallbackInfo ci) {
-        System.out.println("NEW RECIPE");
-        ci.cancel();
-    }
+//    @Inject(at = @At("HEAD"), method = "onRecipeBookData", cancellable = true)
+//    public void onRecipeBookData(RecipeBookDataC2SPacket packet, CallbackInfo ci) {
+//        System.out.println("NEW RECIPE");
+//        ci.cancel();
+//    }
+
+
 }
