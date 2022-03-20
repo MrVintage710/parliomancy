@@ -9,7 +9,7 @@ import net.minecraft.util.Util;
 public class SkillInstance<T extends Skill> {
 
     private int level = 0;
-    private int exp = 0;
+    private double exp = 0;
     private T skill;
 
     public SkillInstance(T skill) {
@@ -20,8 +20,8 @@ public class SkillInstance<T extends Skill> {
         this.gainExp(player, levelBar, skill.getExpReward(action, level) * amountCrafted);
     }
 
-    public void gainExp(ServerPlayerEntity player, CommandBossBar levelBar, int expReward) {
-        showExpGainVisual(levelBar, expReward);
+    public void gainExp(ServerPlayerEntity player, CommandBossBar levelBar, double expReward) {
+        showExpGainVisual(levelBar, expReward, level, exp);
 
         exp = getMaxExp() > exp ? exp + expReward : getMaxExp();
         while (exp >= getNextMilestone() && getMaxLevel() != level) {
@@ -36,35 +36,38 @@ public class SkillInstance<T extends Skill> {
         );
     }
 
-    private void showExpGainVisual(CommandBossBar levelBar, int expReward) {
+    private void showExpGainVisual(CommandBossBar levelBar, double expReward, int startLevel, double startExp) {
         Util.getMainWorkerExecutor().submit(() -> {
-            int currentExp = expReward;
-            int levelGain = 0;
+            double reward = expReward;
+            double currentExp = startExp;
+            int currentLevel = startLevel;
 
-            while (currentExp > 0) {
-                int currentLevel = level + levelGain;
-                int currentMilestone = getMilestone(currentLevel);
-                int lastMilestone = currentLevel != 0 ? getMilestone(currentLevel - 1) : 0;
-                int max = currentMilestone - lastMilestone;
-                int value = exp - lastMilestone;
+            while (reward > 0) {
+                double currentMilestone = getMilestone(currentLevel);
+                double lastMilestone = currentLevel != 0 ? getMilestone(currentLevel - 1) : 0;
+                double max = currentMilestone - lastMilestone;
+                double value = currentExp - lastMilestone;
 
                 levelBar.setName(Text.of(skill.getDisplayName() + " " + currentLevel + " (" + value + "/" + max + ")"));
-                levelBar.setMaxValue(max);
-                levelBar.setValue(value);
+                levelBar.setMaxValue((int) max);
+                levelBar.setValue((int) value);
                 levelBar.setVisible(true);
 
                 wait(1000);
 
-                if(max <= currentExp) {
-                    levelBar.setValue(max);
-                    currentExp -= max;
+                if(max <= reward) {
+                    reward -= max;
+                    currentExp += max;
+                    levelBar.setValue((int) max);
+                    levelBar.setName(Text.of(skill.getDisplayName() + " " + currentLevel + " (" + max + "/" + max + ")"));
                 } else {
-                    int target = value + currentExp;
-                    levelBar.setValue(target);
-                    currentExp = 0;
+                    double target = value + reward;
+                    levelBar.setValue((int) target);
+                    levelBar.setName(Text.of(skill.getDisplayName() + " " + currentLevel + " (" + target + "/" + max + ")"));
+                    reward = 0;
                 }
 
-                levelGain++;
+                currentLevel++;
                 wait(1000);
             }
 
@@ -80,17 +83,17 @@ public class SkillInstance<T extends Skill> {
         }
     }
 
-    public int getMilestone(int level) {
+    public double getMilestone(int level) {
         if(level >= getMaxLevel() && level < 0) return 0;
         return skill.getProgression()[level];
     }
 
-    public int getNextMilestone() {
+    public double getNextMilestone() {
         if(getMaxLevel() == level) return 0;
         return skill.getProgression()[level];
     }
 
-    public int getLastMilestone() {
+    public double getLastMilestone() {
         if(level == 0) return 0;
         return skill.getProgression()[level-1];
     }
@@ -103,7 +106,7 @@ public class SkillInstance<T extends Skill> {
         return skill.getProgression().length;
     }
 
-    public int getMaxExp() {
+    public double getMaxExp() {
         return skill.getProgression()[getMaxLevel() - 1];
     }
 }

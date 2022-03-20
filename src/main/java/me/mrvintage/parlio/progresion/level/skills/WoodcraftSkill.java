@@ -18,7 +18,7 @@ public class WoodcraftSkill implements Skill {
     }
 
     @Override
-    public int getExpReward(LevelAction action, int level) {
+    public double getExpReward(LevelAction action, int level) {
         switch (action) {
             case CRAFT_STICK -> {return level >= 3 ? 0 : 1;}
         }
@@ -26,8 +26,8 @@ public class WoodcraftSkill implements Skill {
     }
 
     @Override
-    public int[] getProgression() {
-        return new int[]{3, 10, 100, 250};
+    public double[] getProgression() {
+        return new double[]{3, 10, 100, 250};
     }
 
     @Override
