@@ -18,9 +18,9 @@ public class WoodcraftSkill implements Skill {
     }
 
     @Override
-    public int getExpReward(LevelAction action) {
+    public int getExpReward(LevelAction action, int level) {
         switch (action) {
-            case CRAFT_STICK -> {return 3;}
+            case CRAFT_STICK -> {return 1;}
         }
         return 0;
     }

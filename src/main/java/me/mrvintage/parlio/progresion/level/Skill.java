@@ -7,7 +7,7 @@ public interface Skill {
 
     void onLevelUp(ServerPlayerEntity player, int level);
 
-    int getExpReward(LevelAction action);
+    int getExpReward(LevelAction action, int level);
 
     int[] getProgression();
 

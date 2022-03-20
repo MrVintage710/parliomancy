@@ -33,8 +33,8 @@ public class ProgressionManager {
         player_memories.remove(player.getUuid());
     }
 
-    public static void envokeLevelAction(ServerPlayerEntity player, LevelAction action) {
-        player_memories.get(player.getUuid()).levelSkill(action);
+    public static void envokeLevelAction(ServerPlayerEntity player, LevelAction action, int amount) {
+        player_memories.get(player.getUuid()).levelSkill(action, amount);
     }
 
     public static void awardRecipeNoPacket(ServerPlayerEntity player, Identifier... identifiers) {

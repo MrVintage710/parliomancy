@@ -26,13 +26,13 @@ public class PlayerMemory {
         skills.put(skill.getIdentifier(), skill);
     }
 
-    public void levelSkill(LevelAction action) {
+    public void levelSkill(LevelAction action, int amount) {
         for(SkillInstance<?> skill : skills.values()) {
-            skill.gainExpReward(player, action, levelbar);
+            skill.gainExpReward(player, action, levelbar, amount);
         }
     }
 
     public void addExpToSkill(Identifier skill, int amount) {
-        skills.get(skill).gainExp(player, amount, levelbar);
+        skills.get(skill).gainExp(player, levelbar, amount);
     }
 }

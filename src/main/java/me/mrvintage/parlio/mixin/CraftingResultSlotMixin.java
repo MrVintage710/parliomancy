@@ -22,12 +22,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(CraftingResultSlot.class)
 public class CraftingResultSlotMixin {
 
-    @Inject(at = @At("HEAD"), method = "onTakeItem", cancellable = true)
-    public void onCrafted(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
-        System.out.println("CRAFTED");
+    @Shadow @Final private PlayerEntity player;
+
+    @Shadow private int amount;
+
+    @Inject(at = @At("HEAD"), method = "onCrafted(Lnet/minecraft/item/ItemStack;)V", cancellable = true)
+    public void onCrafted(ItemStack stack, CallbackInfo ci) {
+        System.out.println("CRAFTED " + amount + " " + stack.getName().asString());
         if(!player.getEntityWorld().isClient && stack.getItem() == Items.STICK) {
             System.out.println("CRAFT STICK");
-            ProgressionManager.envokeLevelAction((ServerPlayerEntity) player, LevelAction.CRAFT_STICK);
+            ProgressionManager.envokeLevelAction((ServerPlayerEntity) player, LevelAction.CRAFT_STICK, amount);
         }
     }
 
