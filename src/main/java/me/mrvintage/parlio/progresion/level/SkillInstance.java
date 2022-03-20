@@ -21,54 +21,63 @@ public class SkillInstance<T extends Skill> {
     }
 
     public void gainExp(ServerPlayerEntity player, CommandBossBar levelBar, int expReward) {
+        showExpGainVisual(levelBar, expReward);
 
-//        levelBar.setValue(exp - getLastMilestone());
-//        levelBar.setMaxValue(getNextMilestone() - getLastMilestone());
-//        levelBar.setName(Text.of(skill.getDisplayName() + " | " + level));
-//        levelBar.setVisible(true);
-
-        int adjustedEXP  = exp + expReward;
-        adjustedEXP = adjustedEXP > getMaxExp() ? getMaxExp() : adjustedEXP;
-        int adjustedLevel = level;
-        while (adjustedEXP >= getNextMilestone() && getMaxLevel() != level) {
-            adjustedLevel += 1;
-            skill.onLevelUp(player, adjustedLevel);
-            player.sendMessage(Text.of("You are now level " + level + " in " + skill.getDisplayName() + "."), false);
+        exp = getMaxExp() > exp ? exp + expReward : getMaxExp();
+        while (exp >= getNextMilestone() && getMaxLevel() != level) {
+            level++;
+            player.sendMessage(Text.of(skill.getDisplayName() + " is now level " + level + "."), false);
+            skill.onLevelUp(player, level);
         }
 
-        showExpGainVisual(levelBar, level, adjustedLevel, exp, adjustedEXP);
-
-        exp = adjustedEXP;
-        level = adjustedLevel;
-
-
-//        Util.getMainWorkerExecutor().submit(() -> {
-//            try {
-//                Thread.sleep(2000);
-//                levelBar.setValue(exp);
-//                Thread.sleep(2000);
-//                levelBar.setVisible(false);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        });
+        System.out.println("Gained EXP: " + expReward +
+                "; Level: " + level +
+                "; Progress: " + (exp - getLastMilestone()) + "/" + (getNextMilestone() - getLastMilestone())
+        );
     }
 
-    private void showExpGainVisual(CommandBossBar levelBar, int startingLevel, int endingLevel, int startingExp, int endingExp) {
+    private void showExpGainVisual(CommandBossBar levelBar, int expReward) {
         Util.getMainWorkerExecutor().submit(() -> {
-            for(int i = startingLevel; i < endingLevel; i++) {
-                int value = startingExp - getLastMilestone();
-                int max = i != 0 ? getMilestone(i) - getMilestone(i - 1) : getMilestone(0);
+            int currentExp = expReward;
+            int levelGain = 0;
 
-                if(endingExp > )
+            while (currentExp > 0) {
+                int currentLevel = level + levelGain;
+                int currentMilestone = getMilestone(currentLevel);
+                int lastMilestone = currentLevel != 0 ? getMilestone(currentLevel - 1) : 0;
+                int max = currentMilestone - lastMilestone;
+                int value = exp - lastMilestone;
 
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                levelBar.setName(Text.of(skill.getDisplayName() + " " + currentLevel + " (" + value + "/" + max + ")"));
+                levelBar.setMaxValue(max);
+                levelBar.setValue(value);
+                levelBar.setVisible(true);
+
+                wait(1000);
+
+                if(max <= currentExp) {
+                    levelBar.setValue(max);
+                    currentExp -= max;
+                } else {
+                    int target = value + currentExp;
+                    levelBar.setValue(target);
+                    currentExp = 0;
                 }
+
+                levelGain++;
+                wait(1000);
             }
+
+            levelBar.setVisible(false);
         });
+    }
+
+    private void wait(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getMilestone(int level) {

@@ -31,6 +31,10 @@ public class ParlioMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        initCommands();
+    }
+
+    private void initCommands() {
         CommandRegistrationCallback.EVENT.register(((dispatcher, dedicated) -> {
 
             LiteralCommandNode<ServerCommandSource> mainNode = CommandManager
