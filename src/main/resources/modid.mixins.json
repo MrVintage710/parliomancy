@@ -9,7 +9,9 @@
     "GameRulesMixin",
     "ServerRecipeBookMixin",
     "PlayerManagerMixin",
-    "CraftingResultSlotMixin"
+    "CraftingResultSlotMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "BlockItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

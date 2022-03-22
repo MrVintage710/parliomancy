@@ -1,5 +1,6 @@
 package me.mrvintage.parlio.progresion.level;
 
+import me.mrvintage.parlio.progresion.level.level_bar.LevelBarHandler;
 import net.minecraft.entity.boss.CommandBossBar;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -16,11 +17,12 @@ public class SkillInstance<T extends Skill> {
         this.skill = skill;
     }
 
-    public void gainExpReward(ServerPlayerEntity player, LevelAction action, CommandBossBar levelBar, int amountCrafted) {
-        this.gainExp(player, levelBar, skill.getExpReward(action, level) * amountCrafted);
+    public void gainExpReward(ServerPlayerEntity player, LevelAction action, LevelBarHandler levelBar, int amountCrafted) {
+        double reward = player.isCreative() ? 0 : skill.getExpReward(action, level) * amountCrafted;
+        this.gainExp(player, levelBar, reward);
     }
 
-    public void gainExp(ServerPlayerEntity player, CommandBossBar levelBar, double expReward) {
+    public void gainExp(ServerPlayerEntity player, LevelBarHandler levelBar, double expReward) {
         showExpGainVisual(levelBar, expReward, level, exp);
 
         exp = getMaxExp() > exp ? exp + expReward : getMaxExp();
@@ -36,8 +38,8 @@ public class SkillInstance<T extends Skill> {
         );
     }
 
-    private void showExpGainVisual(CommandBossBar levelBar, double expReward, int startLevel, double startExp) {
-        Util.getMainWorkerExecutor().submit(() -> {
+    private void showExpGainVisual(LevelBarHandler handler, double expReward, int startLevel, double startExp) {
+        handler.mutate( (levelBar, priority) -> {
             double reward = expReward;
             double currentExp = startExp;
             int currentLevel = startLevel;
@@ -53,11 +55,11 @@ public class SkillInstance<T extends Skill> {
                 levelBar.setValue((int) value);
                 levelBar.setVisible(true);
 
-                wait(1000);
+                wait((int) (1000 * priority.get()));
 
-                if(max <= reward) {
-                    reward -= max;
-                    currentExp += max;
+                if((max - value) <= reward) {
+                    reward -= (max - value);
+                    currentExp += (max - value);
                     levelBar.setValue((int) max);
                     levelBar.setName(Text.of(skill.getDisplayName() + " " + currentLevel + " (" + max + "/" + max + ")"));
                 } else {
@@ -68,7 +70,7 @@ public class SkillInstance<T extends Skill> {
                 }
 
                 currentLevel++;
-                wait(1000);
+                wait((int) (1000*priority.get()));
             }
 
             levelBar.setVisible(false);
@@ -108,5 +110,13 @@ public class SkillInstance<T extends Skill> {
 
     public double getMaxExp() {
         return skill.getProgression()[getMaxLevel() - 1];
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public double getExp() {
+        return exp;
     }
 }

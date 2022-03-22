@@ -27,17 +27,11 @@ public class PlayerManagerMixin {
         startingRecipes.add(new Identifier("minecraft:wooden_shovel"));
         startingRecipes.add(new Identifier("minecraft:wooden_hoe"));
         startingRecipes.add(new Identifier("minecraft:wooden_sword"));
-        startingRecipes.add(new Identifier("minecraft:acacia_planks"));
-        startingRecipes.add(new Identifier("minecraft:spruce_planks"));
-        startingRecipes.add(new Identifier("minecraft:birch_planks"));
-        startingRecipes.add(new Identifier("minecraft:oak_planks"));
-        startingRecipes.add(new Identifier("minecraft:dark_oak_planks"));
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnect")
     public void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         if(!ProgressionManager.hasBeenInitialized(player)) {
-            ProgressionManager.awardRecipeNoPacket(player, startingRecipes);
             ProgressionManager.initPlayer(player);
         }
 

@@ -5,6 +5,7 @@ import me.mrvintage.parlio.progresion.level.SkillInstance;
 import me.mrvintage.parlio.progresion.level.skills.WoodcraftSkill;
 import net.minecraft.network.packet.s2c.play.UnlockRecipesS2CPacket;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.book.RecipeBook;
 import net.minecraft.recipe.book.RecipeBookOptions;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -16,6 +17,18 @@ public class ProgressionManager {
 
     private static HashMap<UUID, PlayerMemory> player_memories = new HashMap<>();
 
+    private static ArrayList<Identifier> startingRecipes = new ArrayList<>();
+
+    static {
+        startingRecipes.add(new Identifier("minecraft:stick"));
+        startingRecipes.add(new Identifier("minecraft:crafting_table"));
+        startingRecipes.add(new Identifier("minecraft:wooden_axe"));
+        startingRecipes.add(new Identifier("minecraft:wooden_pickaxe"));
+        startingRecipes.add(new Identifier("minecraft:wooden_shovel"));
+        startingRecipes.add(new Identifier("minecraft:wooden_hoe"));
+        startingRecipes.add(new Identifier("minecraft:wooden_sword"));
+    }
+
     public static boolean hasBeenInitialized(ServerPlayerEntity player) {
         return player_memories.containsKey(player.getUuid());
     }
@@ -23,9 +36,18 @@ public class ProgressionManager {
     public static void initPlayer(ServerPlayerEntity player) {
         if(!hasBeenInitialized(player)) {
             PlayerMemory mem = new PlayerMemory(player);
+            player.getRecipeBook().copyFrom(new RecipeBook());
+            awardRecipeNoPacket(player, startingRecipes);
             mem.addSkill(new SkillInstance<>(new WoodcraftSkill()));
             player_memories.put(player.getUuid(), mem);
             System.out.println("Made Memory!");
+        }
+    }
+
+    public static void resetPlayer(ServerPlayerEntity player) {
+        if(hasBeenInitialized(player)) {
+            player_memories.remove(player.getUuid());
+            initPlayer(player);
         }
     }
 
