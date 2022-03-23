@@ -1,4 +1,4 @@
-package me.mrvintage.parlio.lang;
+package me.mrvintage.kingdom.lang;
 
 import java.util.HashMap;
 

@@ -1,15 +1,13 @@
-package me.mrvintage.parlio.mixin;
+package me.mrvintage.kingdom.mixin;
 
-import me.mrvintage.parlio.progresion.ProgressionManager;
-import me.mrvintage.parlio.progresion.level.LevelAction;
-import net.minecraft.block.Blocks;
+import me.mrvintage.kingdom.progresion.ProgressionManager;
+import me.mrvintage.kingdom.progresion.level.LevelAction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.tag.Tag;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

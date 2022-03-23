@@ -1,12 +1,9 @@
-package me.mrvintage.parlio.progresion;
+package me.mrvintage.kingdom.progresion;
 
-import me.mrvintage.parlio.progresion.level.LevelAction;
-import me.mrvintage.parlio.progresion.level.SkillInstance;
-import me.mrvintage.parlio.progresion.level.level_bar.LevelBarHandler;
-import me.mrvintage.parlio.progresion.level.level_bar.LevelBarMutator;
-import net.minecraft.entity.boss.CommandBossBar;
+import me.mrvintage.kingdom.progresion.level.LevelAction;
+import me.mrvintage.kingdom.progresion.level.SkillInstance;
+import me.mrvintage.kingdom.progresion.level.level_bar.LevelBarHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;

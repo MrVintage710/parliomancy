@@ -1,8 +1,8 @@
-package me.mrvintage.parlio.mixin;
+package me.mrvintage.kingdom.mixin;
 
-import me.mrvintage.parlio.progresion.ProgressionManager;
+import me.mrvintage.kingdom.event.OnPlayerConnectCallback;
+import me.mrvintage.kingdom.progresion.ProgressionManager;
 import net.minecraft.network.ClientConnection;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 @Mixin(PlayerManager.class)
 public class PlayerManagerMixin {
@@ -29,8 +28,9 @@ public class PlayerManagerMixin {
         startingRecipes.add(new Identifier("minecraft:wooden_sword"));
     }
 
-    @Inject(at = @At("HEAD"), method = "onPlayerConnect")
+    @Inject(at = @At("TAIL"), method = "onPlayerConnect")
     public void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
+        OnPlayerConnectCallback.EVENT.invoker().onPlayerConnect(player);
         if(!ProgressionManager.hasBeenInitialized(player)) {
             ProgressionManager.initPlayer(player);
         }

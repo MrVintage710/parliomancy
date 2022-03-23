@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "me.mrvintage.parlio.mixin",
+  "package": "me.mrvintage.kingdom.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ServerPlayMixin",

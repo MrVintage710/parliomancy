@@ -1,11 +1,9 @@
-package me.mrvintage.parlio.progresion.level;
+package me.mrvintage.kingdom.progresion.level;
 
-import me.mrvintage.parlio.progresion.level.level_bar.LevelBarHandler;
-import net.minecraft.entity.boss.CommandBossBar;
+import me.mrvintage.kingdom.progresion.level.level_bar.LevelBarHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 
 public class SkillInstance<T extends Skill> {
 

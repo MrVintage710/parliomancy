@@ -1,4 +1,4 @@
-package me.mrvintage.parlio.progresion.level.level_bar;
+package me.mrvintage.kingdom.progresion.level.level_bar;
 
 import net.minecraft.entity.boss.CommandBossBar;
 

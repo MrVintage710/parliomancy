@@ -1,4 +1,4 @@
-package me.mrvintage.parlio.mixin;
+package me.mrvintage.kingdom.mixin;
 
 import net.minecraft.world.GameRules;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package me.mrvintage.parlio.progresion.level;
+package me.mrvintage.kingdom.progresion.level;
 
 public enum LevelAction {
     CRAFT_SIMPLE_WOOD_ITEM,

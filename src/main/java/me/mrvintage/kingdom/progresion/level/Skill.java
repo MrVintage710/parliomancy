@@ -1,11 +1,8 @@
-package me.mrvintage.parlio.progresion.level;
+package me.mrvintage.kingdom.progresion.level;
 
-import net.minecraft.entity.boss.BossBar;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-
-import java.time.format.TextStyle;
 
 public interface Skill {
 

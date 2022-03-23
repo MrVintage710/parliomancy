@@ -1,17 +1,11 @@
-package me.mrvintage.parlio.progresion.level.level_bar;
+package me.mrvintage.kingdom.progresion.level.level_bar;
 
-import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.boss.BossBarManager;
 import net.minecraft.entity.boss.CommandBossBar;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

@@ -1,10 +1,9 @@
-package me.mrvintage.parlio.progresion.level.skills;
+package me.mrvintage.kingdom.progresion.level.skills;
 
-import me.mrvintage.parlio.ParlioMod;
-import me.mrvintage.parlio.progresion.ProgressionManager;
-import me.mrvintage.parlio.progresion.level.LevelAction;
-import me.mrvintage.parlio.progresion.level.Skill;
-import net.minecraft.entity.boss.BossBar;
+import me.mrvintage.kingdom.KingdomMod;
+import me.mrvintage.kingdom.progresion.ProgressionManager;
+import me.mrvintage.kingdom.progresion.level.LevelAction;
+import me.mrvintage.kingdom.progresion.level.Skill;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -36,7 +35,7 @@ public class WoodcraftSkill implements Skill {
 
     @Override
     public Identifier getIdentifier() {
-        return new Identifier(ParlioMod.MODID, "woodcraft");
+        return new Identifier(KingdomMod.MODID, "woodcraft");
     }
 
     @Override

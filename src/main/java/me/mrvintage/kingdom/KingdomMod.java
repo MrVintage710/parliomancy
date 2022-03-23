@@ -1,4 +1,4 @@
-package me.mrvintage.parlio;
+package me.mrvintage.kingdom;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -7,20 +7,22 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import me.mrvintage.parlio.progresion.PlayerMemory;
-import me.mrvintage.parlio.progresion.ProgressionManager;
+import me.mrvintage.kingdom.progresion.PlayerMemory;
+import me.mrvintage.kingdom.progresion.ProgressionManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.minecraft.command.argument.ArgumentTypes;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.minecraft.block.BlockState;
 import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ParlioMod implements ModInitializer {
+public class KingdomMod implements ModInitializer {
 
     public static final String MODID = "parlio";
 
@@ -85,7 +87,7 @@ public class ParlioMod implements ModInitializer {
                     .executes(ctx -> {
                         ServerPlayerEntity player = ctx.getSource().getPlayer();
                         PlayerMemory mem = ProgressionManager.getMemory(player);
-                        mem.addExpToSkill(new Identifier(ParlioMod.MODID, ctx.getArgument("skill_name", String.class)), ctx.getArgument("amount", Integer.class));
+                        mem.addExpToSkill(new Identifier(KingdomMod.MODID, ctx.getArgument("skill_name", String.class)), ctx.getArgument("amount", Integer.class));
                         return 0;
                     })
                     .build();
@@ -105,5 +107,16 @@ public class ParlioMod implements ModInitializer {
 
             award_recipe.addChild(recipe);
         }));
+    }
+
+    private void attackBlockCallback() {
+        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
+            BlockState state = world.getBlockState(pos);
+            return ActionResult.FAIL;
+        });
+    }
+
+    private void onJoinCallback() {
+
     }
 }

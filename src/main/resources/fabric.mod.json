@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "parlio",
+  "id": "kingdom",
   "version": "${version}",
 
-  "name": "Parliomancy",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Kingdom Craft",
+  "description": "A server-side mod all about creating game systems that incentive's  Communities",
   "authors": [
     "MrVintage710"
   ],
@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.mrvintage.parlio.ParlioMod"
+      "me.mrvintage.kingdom.KingdomMod"
     ]
   },
   "mixins": [

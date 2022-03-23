@@ -1,15 +1,13 @@
-package me.mrvintage.parlio.progresion;
+package me.mrvintage.kingdom.progresion;
 
-import me.mrvintage.parlio.progresion.level.LevelAction;
-import me.mrvintage.parlio.progresion.level.SkillInstance;
-import me.mrvintage.parlio.progresion.level.skills.WoodcraftSkill;
+import me.mrvintage.kingdom.progresion.level.LevelAction;
+import me.mrvintage.kingdom.progresion.level.SkillInstance;
+import me.mrvintage.kingdom.progresion.level.skills.WoodcraftSkill;
 import net.minecraft.network.packet.s2c.play.UnlockRecipesS2CPacket;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeBook;
 import net.minecraft.recipe.book.RecipeBookOptions;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
-package me.mrvintage.parlio.mixin;
+package me.mrvintage.kingdom.mixin;
 
-import me.mrvintage.parlio.progresion.ProgressionManager;
-import me.mrvintage.parlio.progresion.level.LevelAction;
+import me.mrvintage.kingdom.progresion.ProgressionManager;
+import me.mrvintage.kingdom.progresion.level.LevelAction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
