@@ -1,6 +1,9 @@
 package me.mrvintage.kingdom.progresion;
 
+import me.mrvintage.kingdom.KingdomMod;
+import me.mrvintage.kingdom.event.OnPlayerConnectCallback;
 import me.mrvintage.kingdom.progresion.level.LevelAction;
+import me.mrvintage.kingdom.progresion.level.Skill;
 import me.mrvintage.kingdom.progresion.level.SkillInstance;
 import me.mrvintage.kingdom.progresion.level.skills.WoodcraftSkill;
 import net.minecraft.network.packet.s2c.play.UnlockRecipesS2CPacket;
@@ -31,12 +34,19 @@ public class ProgressionManager {
         return player_memories.containsKey(player.getUuid());
     }
 
+    public static void onPlayerConnect(ServerPlayerEntity player) {
+        if(!hasBeenInitialized(player)) initPlayer(player);
+        PlayerMemory memory = getMemory(player);
+        memory.onPlayerConnect(player.getServer());
+        KingdomMod.LOGGER.debug("Player Connected: " + player.getDisplayName().asString() + ". Player Memory up to date.");
+    }
+
     public static void initPlayer(ServerPlayerEntity player) {
         if(!hasBeenInitialized(player)) {
             PlayerMemory mem = new PlayerMemory(player);
             player.getRecipeBook().copyFrom(new RecipeBook());
             awardRecipeNoPacket(player, startingRecipes);
-            mem.addSkill(new SkillInstance<>(new WoodcraftSkill()));
+            mem.addSkill(Skill.DEFAULT_SKILLS);
             player_memories.put(player.getUuid(), mem);
             System.out.println("Made Memory!");
         }

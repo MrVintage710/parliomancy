@@ -7,6 +7,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import me.mrvintage.kingdom.event.OnPlayerConnectCallback;
 import me.mrvintage.kingdom.progresion.PlayerMemory;
 import me.mrvintage.kingdom.progresion.ProgressionManager;
 import net.fabricmc.api.ModInitializer;
@@ -19,12 +20,14 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import org.checkerframework.checker.units.qual.C;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xyz.nucleoid.fantasy.Fantasy;
 
 public class KingdomMod implements ModInitializer {
 
-    public static final String MODID = "parlio";
+    public static final String MODID = "kingdom";
 
     // This logger is used to write text to the console and the log file.
     // It is considered best practice to use your mod id as the logger's name.
@@ -34,6 +37,7 @@ public class KingdomMod implements ModInitializer {
     @Override
     public void onInitialize() {
         initCommands();
+        OnPlayerConnectCallback.EVENT.register(ProgressionManager::onPlayerConnect);
     }
 
     private void initCommands() {
@@ -45,6 +49,16 @@ public class KingdomMod implements ModInitializer {
 
             LiteralCommandNode<ServerCommandSource> memory = CommandManager
                     .literal("memory")
+                    .build();
+
+            LiteralCommandNode<ServerCommandSource> travelToSoulhome = CommandManager
+                    .literal("tavel_to_soulhome")
+                    .executes(context -> {
+                        ServerPlayerEntity player = context.getSource().getPlayer();
+                        PlayerMemory mem = ProgressionManager.getMemory(player);
+                        player.teleport(mem.getSoulhome(), 0, 10, 0, 0, 0);
+                        return 0;
+                    })
                     .build();
 
             LiteralCommandNode<ServerCommandSource> award_recipe = CommandManager
@@ -99,6 +113,7 @@ public class KingdomMod implements ModInitializer {
 
             memory.addChild(remove_memory);
             memory.addChild(skill);
+            memory.addChild(travelToSoulhome);
 
             skill.addChild(skill_name);
 

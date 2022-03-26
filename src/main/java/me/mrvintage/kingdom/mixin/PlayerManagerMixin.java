@@ -31,9 +31,10 @@ public class PlayerManagerMixin {
     @Inject(at = @At("TAIL"), method = "onPlayerConnect")
     public void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         OnPlayerConnectCallback.EVENT.invoker().onPlayerConnect(player);
-        if(!ProgressionManager.hasBeenInitialized(player)) {
-            ProgressionManager.initPlayer(player);
-        }
+
+//        if(!ProgressionManager.hasBeenInitialized(player)) {
+//            ProgressionManager.initPlayer(player);
+//        }
 
         //System.out.println(player.getDisplayName().asString() + " entered the battlefield.");
     }

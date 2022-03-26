@@ -1,0 +1,42 @@
+Spells Are sentences that are spoken in specific languages. Each word in a spell sentence breaks down as one of these
+Five things: Noun, Verb, Adjective, Timing, Predicate.
+
+Noun: typically refers to the target. Spells can have one or more of these.
+Verb: What the spell will do to the target.
+Adjective: How the spell will do the thing.
+Predicate: What has to happen for the spell to work. This normally gives the spell a benifit.
+
+Each sentence must be grammatically correct and the user must have enough energy to cast the spell, other wise it will
+fizzle.
+
+Example:
+If
+
++-------------------------------+
+|          Predicates           |
++-------------------------------+
+
+'With the light'
+
+This means that this spell only works in the light. Adding stipulations like this typically makes the spell cheaper.
+If this said 'Using the Light', this wouldn't make it cheaper, it would make it more effective.
+
+predicates start with any of these:
+With            'With the Shadow'
+Using           'Using the Fire'
+After           'After the Spell is Spoken'
+Until           'Until the Body Moves'
+While           'While the Water Flows'
+
+then they are followed by a noun. Some are then followed by a verb if the predicate needs to specify.
+
+
++-------------------------------+
+|             Nouns             |
++-------------------------------+
+
+These are words that represent things. Choosing the correct word to use is essential for making spells work. The more
+general the word is, the more things it will affect and the more the spell will cost. If the spell cost more mana than
+what you have, then it will fizzle.
+
+Water - items or blocks that are filled with water. Wet Sponges, water blocks, buckets of water, watter bottles.
