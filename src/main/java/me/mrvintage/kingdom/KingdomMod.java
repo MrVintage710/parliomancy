@@ -7,7 +7,11 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import me.mrvintage.kingdom.event.OnPlayerChatCallback;
+import me.mrvintage.kingdom.event.OnSpellcastAttemptCallback;
 import me.mrvintage.kingdom.event.OnPlayerConnectCallback;
+import me.mrvintage.kingdom.lang.LanguageManager;
+import me.mrvintage.kingdom.magic.MagicManager;
 import me.mrvintage.kingdom.progresion.PlayerMemory;
 import me.mrvintage.kingdom.progresion.ProgressionManager;
 import net.fabricmc.api.ModInitializer;
@@ -20,10 +24,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
-import org.checkerframework.checker.units.qual.C;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import xyz.nucleoid.fantasy.Fantasy;
 
 public class KingdomMod implements ModInitializer {
 
@@ -38,6 +40,12 @@ public class KingdomMod implements ModInitializer {
     public void onInitialize() {
         initCommands();
         OnPlayerConnectCallback.EVENT.register(ProgressionManager::onPlayerConnect);
+        OnPlayerChatCallback.EVENT.register(LanguageManager::onPlayerChat);
+        OnSpellcastAttemptCallback.EVENT.register((player, tokens, message) -> MagicManager.onSpellcastAttempt(player, tokens, message));
+
+//        OnPlayerChatCompleteCallback.EVENT.register(((player, languageMap, message) -> {
+//            System.out.println(message);
+//        }));
     }
 
     private void initCommands() {
@@ -56,7 +64,7 @@ public class KingdomMod implements ModInitializer {
                     .executes(context -> {
                         ServerPlayerEntity player = context.getSource().getPlayer();
                         PlayerMemory mem = ProgressionManager.getMemory(player);
-                        player.teleport(mem.getSoulhome(), 0, 10, 0, 0, 0);
+                        player.teleport(mem.getSoulhome(), 0, 121, 0, 0, 0);
                         return 0;
                     })
                     .build();

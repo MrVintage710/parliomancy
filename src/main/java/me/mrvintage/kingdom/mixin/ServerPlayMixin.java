@@ -1,5 +1,6 @@
 package me.mrvintage.kingdom.mixin;
 
+import me.mrvintage.kingdom.event.OnPlayerChatCallback;
 import net.minecraft.entity.boss.CommandBossBar;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -13,16 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayNetworkHandler.class)
 public class ServerPlayMixin {
 
-    private static CommandBossBar bar = null;
-
     @Shadow public ServerPlayerEntity player;
 
     @Inject(at = @At("HEAD"), method = "onChatMessage", cancellable = true)
     public void onMessage(ChatMessageC2SPacket packet, CallbackInfo ci){
-        System.out.println("CHAT");
-        if(packet.getChatMessage().startsWith(":")) {
-
-        }
+        if(!OnPlayerChatCallback.EVENT.invoker().OnPlayerChat(player, packet.getChatMessage())) ci.cancel();
     }
 
 //    @Inject(at = @At("HEAD"), method = "onCraftRequest", cancellable = true)

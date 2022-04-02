@@ -10,7 +10,21 @@ Each sentence must be grammatically correct and the user must have enough energy
 fizzle.
 
 Example:
-If
+Transport me to my Soulhome.
+
+-Tokens-
+[Verb, Noun, Preposition, Possessive, Noun]
+
+
+-Parse-
+
+Spell: SpellAction [Target [Preposition Target]*]
+
+SpellAction: Verb | Predicate ", " Verb
+
+Predicate: ("With" | "Using" | "") Target
+
+Target: Noun | Noun Preposition Noun | Possessive Target
 
 +-------------------------------+
 |          Predicates           |
