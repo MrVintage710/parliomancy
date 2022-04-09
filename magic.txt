@@ -22,7 +22,7 @@ Spell: SpellAction [Target [Preposition Target]*]
 
 SpellAction: Verb | Predicate ", " Verb
 
-Predicate: ("With" | "Using" | "") Target
+Predicate: ("With" | "Using" | "When") Target
 
 Target: Noun | Noun Preposition Noun | Possessive Target
 

@@ -12,16 +12,21 @@ public class SpellTokenList {
     }
 
     public SpellToken pop() {
-        return spellTokens.get(current++);
+        return getIndex(current++);
     }
 
     public SpellToken peek() {
-        return spellTokens.get(current);
+        return getIndex(current);
     }
 
     public boolean peekType(SpellTokenType type) {
         if(isAtEnd()) return false;
-        return spellTokens.get(current).getTokenType() == type;
+        return getIndex(current).getTokenType() == type;
+    }
+
+    private SpellToken getIndex(int index) {
+        if(index >= spellTokens.size()) return spellTokens.get(spellTokens.size() - 1);
+        return spellTokens.get(index);
     }
 
     public boolean isAtEnd() {

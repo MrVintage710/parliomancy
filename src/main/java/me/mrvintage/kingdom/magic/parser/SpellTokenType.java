@@ -5,5 +5,6 @@ public enum SpellTokenType {
     VERB,
     PREPOSITION,
     POSSESSIVE,
+    EOS,
     NONE
 }

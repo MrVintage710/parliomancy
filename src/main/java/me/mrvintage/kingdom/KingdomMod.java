@@ -39,9 +39,9 @@ public class KingdomMod implements ModInitializer {
     @Override
     public void onInitialize() {
         initCommands();
+        MagicManager.init();
         OnPlayerConnectCallback.EVENT.register(ProgressionManager::onPlayerConnect);
         OnPlayerChatCallback.EVENT.register(LanguageManager::onPlayerChat);
-        OnSpellcastAttemptCallback.EVENT.register((player, tokens, message) -> MagicManager.onSpellcastAttempt(player, tokens, message));
 
 //        OnPlayerChatCompleteCallback.EVENT.register(((player, languageMap, message) -> {
 //            System.out.println(message);

@@ -1,5 +1,6 @@
 package me.mrvintage.kingdom.magic;
 
+import me.mrvintage.kingdom.event.OnSpellcastAttemptCallback;
 import me.mrvintage.kingdom.magic.parser.*;
 import me.mrvintage.kingdom.magic.spell.Spell;
 import me.mrvintage.kingdom.magic.spell.SpellAction;
@@ -18,6 +19,8 @@ public class MagicManager {
     private static HashMap<String, NounParsable> nouns = new HashMap<>();
 
     public static void init() {
+        OnSpellcastAttemptCallback.EVENT.register(MagicManager::onSpellcastAttempt);
+
         //Add Verbs
         addVerb(new TravelVerb());
 
