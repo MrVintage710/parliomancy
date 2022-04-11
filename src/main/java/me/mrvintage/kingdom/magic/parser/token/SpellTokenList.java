@@ -1,4 +1,4 @@
-package me.mrvintage.kingdom.magic.parser;
+package me.mrvintage.kingdom.magic.parser.token;
 
 import java.util.ArrayList;
 
@@ -31,5 +31,24 @@ public class SpellTokenList {
 
     public boolean isAtEnd() {
         return current >= spellTokens.size();
+    }
+
+    public boolean match(SpellTokenType... types) {
+        for(SpellTokenType type : types) {
+            if(type == peek().getTokenType()) return true;
+        }
+
+        return false;
+    }
+
+    public boolean matchAndConsume(SpellTokenType... types) {
+        for(SpellTokenType type : types) {
+            if(type == peek().getTokenType())  {
+                current++;
+                return true;
+            }
+        }
+
+        return false;
     }
 }

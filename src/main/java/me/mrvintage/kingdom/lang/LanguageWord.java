@@ -1,6 +1,6 @@
 package me.mrvintage.kingdom.lang;
 
-import me.mrvintage.kingdom.magic.parser.SpellTokenType;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenType;
 
 public interface LanguageWord<T extends LanguageCharacter> {
 

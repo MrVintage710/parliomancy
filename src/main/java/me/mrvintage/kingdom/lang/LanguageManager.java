@@ -1,14 +1,12 @@
 package me.mrvintage.kingdom.lang;
 
 import me.mrvintage.kingdom.event.OnSpellcastAttemptCallback;
-import me.mrvintage.kingdom.magic.parser.SpellToken;
-import me.mrvintage.kingdom.magic.parser.SpellTokenList;
-import me.mrvintage.kingdom.magic.parser.SpellTokenType;
+import me.mrvintage.kingdom.magic.parser.token.SpellToken;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenList;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenType;
 import net.minecraft.network.MessageType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-
-import java.util.ArrayList;
 
 public class LanguageManager {
 
@@ -25,7 +23,7 @@ public class LanguageManager {
                 String word = split[i].toLowerCase();
                 var other = ELVEN.fromEnglishToLanguage(word).orElse("");
                 var type = ELVEN.getTokenType(word).orElse(SpellTokenType.NONE);
-                tokenTypes.add(new SpellToken(type, word));
+                tokenTypes.add(new SpellToken(type, ELVEN, word));
                 result += other;
             }
 

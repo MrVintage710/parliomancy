@@ -1,9 +1,8 @@
-package me.mrvintage.kingdom.magic.spell.verb;
+package me.mrvintage.kingdom.magic.parser.verb;
 
-import me.mrvintage.kingdom.magic.parser.SpellTokenType;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenType;
 import me.mrvintage.kingdom.magic.spell.SpellAction;
-import me.mrvintage.kingdom.magic.parser.SpellTokenList;
-import me.mrvintage.kingdom.magic.parser.VerbParsable;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenList;
 
 import java.util.Optional;
 

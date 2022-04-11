@@ -12,6 +12,7 @@ import me.mrvintage.kingdom.event.OnSpellcastAttemptCallback;
 import me.mrvintage.kingdom.event.OnPlayerConnectCallback;
 import me.mrvintage.kingdom.lang.LanguageManager;
 import me.mrvintage.kingdom.magic.MagicManager;
+import me.mrvintage.kingdom.magic.parser.SpellParser;
 import me.mrvintage.kingdom.progresion.PlayerMemory;
 import me.mrvintage.kingdom.progresion.ProgressionManager;
 import net.fabricmc.api.ModInitializer;
@@ -40,6 +41,7 @@ public class KingdomMod implements ModInitializer {
     public void onInitialize() {
         initCommands();
         MagicManager.init();
+        SpellParser.init();
         OnPlayerConnectCallback.EVENT.register(ProgressionManager::onPlayerConnect);
         OnPlayerChatCallback.EVENT.register(LanguageManager::onPlayerChat);
 

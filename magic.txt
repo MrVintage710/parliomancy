@@ -15,16 +15,34 @@ Transport me to my Soulhome.
 -Tokens-
 [Verb, Noun, Preposition, Possessive, Noun]
 
+-Token Types-
+Verb,
+Noun,
+Preposition,
+Possessive: "their",
+Adjective,
+Adverb,
+Period,
+Apostrophe
+Literal
 
 -Parse-
 
-Spell: SpellAction [Target [Preposition Target]*]
+Spell: SpellSentence *
 
-SpellAction: Verb | Predicate ", " Verb
+SpellSentence: SpellAction Target "."
+
+SpellAction: VerbPair | Predicate ", " VerbPair
+
+VerbPair: Verb [Adverb] | [Adverb] Verb
+
+NounPair: [Adjective] Noun
 
 Predicate: ("With" | "Using" | "When") Target
 
-Target: Noun | Noun Preposition Noun | Possessive Target
+Target: NounPair | NounPair Preposition Target | PossessiveStatement Target
+
+PossessiveStatement: Possessive | Noun ("'s" | "'")
 
 +-------------------------------+
 |          Predicates           |

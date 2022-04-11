@@ -1,6 +1,6 @@
 package me.mrvintage.kingdom.event;
 
-import me.mrvintage.kingdom.magic.parser.SpellTokenList;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenList;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.server.network.ServerPlayerEntity;

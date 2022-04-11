@@ -1,9 +1,8 @@
 package me.mrvintage.kingdom.lang;
 
-import me.mrvintage.kingdom.magic.parser.SpellTokenType;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenType;
 import me.mrvintage.kingdom.util.DepthMap;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 public class LanguageMap<T extends LanguageWord> {

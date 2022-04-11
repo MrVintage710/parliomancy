@@ -1,6 +1,6 @@
 package me.mrvintage.kingdom.lang;
 
-import me.mrvintage.kingdom.magic.parser.SpellTokenType;
+import me.mrvintage.kingdom.magic.parser.token.SpellTokenType;
 
 enum ElvenWord implements LanguageWord<ElvenCharacter>{
     VOTENI(new String[]{"soulhome"}, SpellTokenType.NOUN, ElvenCharacter.VO, ElvenCharacter.TE, ElvenCharacter.NI),
