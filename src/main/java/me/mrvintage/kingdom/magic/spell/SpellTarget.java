@@ -9,4 +9,16 @@ public class SpellTarget<T> {
         this.target = target;
         this.type = type;
     }
+
+    public T getTarget() {
+        return target;
+    }
+
+    public SpellTargetType getType() {
+        return type;
+    }
+
+    public boolean is(SpellTargetType type) {
+        return this.type == type;
+    }
 }

@@ -30,15 +30,17 @@ Literal
 
 Spell: SpellSentence *
 
-SpellSentence: SpellAction Target "."
+SpellSentence: SpellAction  "."
 
-SpellAction: VerbPair | Predicate ", " VerbPair
+SpellAction: [Predicate ","] VerbPair Group [Preposition Group]*
 
-VerbPair: Verb [Adverb] | [Adverb] Verb
+VerbPair: Verb [Adverb]
 
 NounPair: [Adjective] Noun
 
 Predicate: ("With" | "Using" | "When") Target
+
+Group: Target ["and" Target]*
 
 Target: NounPair | NounPair Preposition Target | PossessiveStatement Target
 

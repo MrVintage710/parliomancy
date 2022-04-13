@@ -7,6 +7,7 @@ public enum SpellTokenType {
     POSSESSIVE,
     ADVERB,
     ADJECTIVE,
+    AND,
     EOS,
     NONE
 }

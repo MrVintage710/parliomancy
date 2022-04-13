@@ -6,13 +6,8 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.util.math.BlockPos;
 
 public enum SpellTargetType {
-    POSITION(BlockPos.class),
-    ENTITY(Entity.class),
-    INVENTORY(Inventory.class);
-
-    private Class clazz;
-
-    SpellTargetType(Class clazz) {
-        this.clazz = clazz;
-    }
+    POSITION,
+    BLOCK,
+    ENTITY,
+    INVENTORY;
 }

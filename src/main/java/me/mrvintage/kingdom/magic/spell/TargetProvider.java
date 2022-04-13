@@ -1,16 +1,15 @@
 package me.mrvintage.kingdom.magic.spell;
 
-import javax.swing.text.html.parser.Entity;
-import java.util.Arrays;
+import net.minecraft.server.world.ServerWorld;
+
 import java.util.List;
 
 public interface TargetProvider {
 
-    static TargetProvider createEntityTargetProvider(Entity entity) {
-        return sources -> {
-            return Arrays.asList(new SpellTarget<Entity>(entity, SpellTargetType.ENTITY));
-        };
-    }
+    List<SpellTarget> getTargets(SpellTarget source, ServerWorld serverWorld);
 
-    List<SpellTarget> getTargets(TargetProvider sources);
+    default SpellTargetList toSpellTargetList(SpellTarget source, ServerWorld world) {
+        var targets = getTargets(source, world);
+        return new SpellTargetList(targets.toArray(new SpellTarget[0]));
+    }
 }

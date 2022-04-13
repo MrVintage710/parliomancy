@@ -1,29 +1,33 @@
 package me.mrvintage.kingdom.magic.parser.part;
 
-import me.mrvintage.kingdom.magic.parser.SpellParser;
-import me.mrvintage.kingdom.magic.parser.token.SpellToken;
-import me.mrvintage.kingdom.magic.parser.token.SpellTokenType;
+import me.mrvintage.kingdom.magic.parser.adjective.SpellAdjective;
+import me.mrvintage.kingdom.magic.parser.noun.SpellNoun;
 import me.mrvintage.kingdom.magic.spell.SpellTarget;
 import me.mrvintage.kingdom.magic.spell.TargetProvider;
+import net.minecraft.server.world.ServerWorld;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class NounPairPart implements TargetProvider {
 
-    private SpellToken noun;
-    private Optional<SpellToken> adjective = Optional.empty();
+    private SpellNoun noun;
+    private Optional<SpellAdjective> adjective = Optional.empty();
 
-    public NounPairPart(SpellToken noun) {
+    public NounPairPart(SpellNoun noun) {
         this.noun = noun;
     }
 
-    public void setAdjective(SpellToken adjective) {
+    public NounPairPart setAdjective(SpellAdjective adjective) {
         this.adjective = Optional.of(adjective);
+        return this;
     }
 
     @Override
-    public List<SpellTarget> getTargets(TargetProvider sources) {
-        return null;
+    public List<SpellTarget> getTargets(SpellTarget source, ServerWorld world) {
+        ArrayList<SpellTarget> targets = new ArrayList<>();
+
+        return targets;
     }
 }

@@ -1,12 +1,24 @@
 package me.mrvintage.kingdom.magic.spell;
 
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import me.mrvintage.kingdom.magic.parser.preposition.SpellPreposition;
 
-public interface SpellAction {
+import java.util.ArrayList;
 
-    int getCost();
+public class SpellAction {
 
-    void onCast(ServerPlayerEntity source, ParticleManager manager);
+    private SpellEffect action;
+    private TargetProvider group;
+
+    private ArrayList<SpellPreposition> prepositions = new ArrayList<>();
+    private ArrayList<TargetProvider> prepositionTargets = new ArrayList<>();
+
+    public SpellAction(SpellEffect action, TargetProvider group) {
+        this.action = action;
+        this.group = group;
+    }
+
+    public void add(SpellPreposition preposition, TargetProvider provider) {
+        prepositions.add(preposition);
+        prepositionTargets.add(provider);
+    }
 }
