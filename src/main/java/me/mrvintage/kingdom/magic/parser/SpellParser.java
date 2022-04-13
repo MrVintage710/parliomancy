@@ -5,6 +5,7 @@ import static me.mrvintage.kingdom.magic.parser.token.SpellTokenType.*;
 import me.mrvintage.kingdom.magic.parser.adjective.SpellAdjective;
 import me.mrvintage.kingdom.magic.parser.noun.SpellNoun;
 import me.mrvintage.kingdom.magic.parser.part.NounPairPart;
+import me.mrvintage.kingdom.magic.parser.preposition.SpellPreposition;
 import me.mrvintage.kingdom.magic.parser.token.SpellTokenList;
 import me.mrvintage.kingdom.magic.parser.verb.SpellVerb;
 import me.mrvintage.kingdom.magic.spell.*;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 public class SpellParser {
 
+    private static HashMap<String, SpellPreposition> prepositions = new HashMap<>();
     private static HashMap<String, SpellAdjective> adjectives = new HashMap<>();
     private static HashMap<String, SpellNoun> nouns = new HashMap<>();
     private static HashMap<String, SpellVerb> verbs = new HashMap<>();
@@ -24,6 +26,7 @@ public class SpellParser {
         addNouns();
         addAdjectives();
         addVerbs();
+        addPrepositions();
     }
 
     private static Optional<Spell> parseSpell(SpellTokenList list) {
@@ -39,14 +42,16 @@ public class SpellParser {
         var group  = parseGroup(list);
 
         if(verbPair.isPresent() && group.isPresent()) {
-
+            var spellAction = new SpellAction(verbPair.get(), group.get());
             while(list.match(PREPOSITION)) {
-                var preposition = list.pop();
+                var preposition = parsePreposition(list);
                 var g = parseGroup(list);
-                if(g.isPresent()) {
-
+                if(g.isPresent() && preposition.isPresent()) {
+                    spellAction.add(preposition.get(), g.get());
                 }
             }
+
+            return Optional.of(spellAction);
         }
 
         return Optional.empty();
@@ -123,6 +128,17 @@ public class SpellParser {
         return Optional.empty();
     }
 
+    public Optional<SpellPreposition> parsePreposition(SpellTokenList tokens) {
+        if(tokens.match(PREPOSITION)) {
+            String name = tokens.pop().getValue();
+            if(prepositions.containsKey(name)) {
+                return Optional.of(prepositions.get(name));
+            }
+        }
+
+        return Optional.empty();
+    }
+
     private static void addNouns() {
         for(SpellNoun noun : SpellNoun.values()) {
             for(String match : noun.getMatches()) {
@@ -144,6 +160,12 @@ public class SpellParser {
             for(String match : adjective.getMatches()) {
                 adjectives.put(match, adjective);
             }
+        }
+    }
+
+    private static void addPrepositions() {
+        for(SpellPreposition preposition : SpellPreposition.values()) {
+            prepositions.put(preposition.getMatch(), preposition);
         }
     }
 }
