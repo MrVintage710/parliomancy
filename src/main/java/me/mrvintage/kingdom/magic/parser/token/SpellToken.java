@@ -25,4 +25,9 @@ public class SpellToken {
     public LanguageMap getLanguage() {
         return language;
     }
+
+    @Override
+    public String toString() {
+        return tokenType.toString() + " | " + value;
+    }
 }

@@ -19,6 +19,49 @@ class SpellParserTest {
     }
 
     @Test
+    void tokenizer() {
+        SpellTokenList list = SpellParser.tokenizeSpell("quickly travel to soulhome", LanguageManager.ELVEN);
+
+        assertTrue(list.matchAndConsume(SpellTokenType.ADVERB));
+        assertTrue(list.matchAndConsume(SpellTokenType.VERB));
+        assertTrue(list.matchAndConsume(SpellTokenType.PREPOSITION));
+        assertTrue(list.matchAndConsume(SpellTokenType.NOUN));
+    }
+
+    @Test
+    void parseSpellAction() {
+        var tokens = SpellParser.tokenizeSpell("quickly travel to soulhome", LanguageManager.ELVEN);
+
+        var out = SpellParser.parseSpellAction(tokens);
+        tokens.pop();
+
+        assertTrue(out.isPresent());
+        assertTrue(tokens.isAtEnd());
+    }
+
+    @Test
+    void parseGroup() {
+        var tokens = SpellParser.tokenizeSpell("soulhome and soulhome", LanguageManager.ELVEN);
+
+        var out = SpellParser.parseGroup(tokens);
+        tokens.pop();
+
+        assertTrue(out.isPresent());
+        assertTrue(tokens.isAtEnd());
+    }
+
+    @Test
+    void parseVerbPair() {
+        SpellTokenList list = SpellParser.tokenizeSpell("quickly travel", LanguageManager.ELVEN);
+
+        var out = SpellParser.parseVerbPair(list);
+        list.pop();
+
+        assertTrue(out.isPresent());
+        assertTrue(list.isAtEnd());
+    }
+
+    @Test
     void parseNounPair() {
         SpellTokenList list = new SpellTokenList();
         list.add(new SpellToken(SpellTokenType.NOUN, LanguageManager.ELVEN, "me"));
@@ -27,6 +70,17 @@ class SpellParserTest {
         var out = SpellParser.parseNounPair(list);
 
         assertFalse(out.isEmpty());
+    }
+
+    @Test
+    void parsePreposition() {
+        SpellTokenList list = SpellParser.tokenizeSpell("to", LanguageManager.ELVEN);
+
+        var preposition = SpellParser.parsePreposition(list);
+        list.matchAndConsume(SpellTokenType.PERIOD);
+
+        assertFalse(preposition.isEmpty());
+        assertTrue(list.isAtEnd());
     }
 
     @Test

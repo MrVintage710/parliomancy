@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class SpellGroup implements TargetProvider {
 
-    private ArrayList<TargetProvider> targets;
+    private ArrayList<TargetProvider> targets = new ArrayList<>();
 
     public void add(TargetProvider provider) {
         targets.add(provider);

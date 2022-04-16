@@ -26,7 +26,11 @@ public class NounPairPart implements TargetProvider {
 
     @Override
     public List<SpellTarget> getTargets(SpellTarget source, ServerWorld world) {
-        ArrayList<SpellTarget> targets = new ArrayList<>();
+        var targets = noun.getTargets(source, world);
+
+        if(adjective.isPresent()) {
+            return adjective.get().filterTargets(targets, world);
+        }
 
         return targets;
     }

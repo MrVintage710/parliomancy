@@ -1,9 +1,7 @@
 package me.mrvintage.kingdom.magic.parser.verb;
 
-import me.mrvintage.kingdom.magic.parser.token.SpellTokenList;
 import me.mrvintage.kingdom.magic.spell.*;
 
-import java.util.List;
 import java.util.Optional;
 
 public enum SpellVerb implements SpellEffect {
@@ -22,12 +20,12 @@ public enum SpellVerb implements SpellEffect {
     }
 
     @Override
-    public int getCost(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList) {
-        return effect.getCost(target, source, prepositionList);
+    public int getCost(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList, Optional<SpellEffectModifier> modifier) {
+        return effect.getCost(target, source, prepositionList, Optional.empty());
     }
 
     @Override
-    public boolean execute(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList) {
-        return effect.execute(target, source, prepositionList);
+    public boolean execute(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList, Optional<SpellEffectModifier> modifier) {
+        return effect.execute(target, source, prepositionList, Optional.empty());
     }
 }

@@ -9,5 +9,7 @@ public enum SpellTokenType {
     ADJECTIVE,
     AND,
     EOS,
+    PERIOD,
+    COMMA,
     NONE
 }

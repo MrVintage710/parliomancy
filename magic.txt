@@ -32,7 +32,7 @@ Spell: SpellSentence *
 
 SpellSentence: SpellAction  "."
 
-SpellAction: [Predicate ","] VerbPair Group [Preposition Group]*
+SpellAction: [Predicate ","] VerbPair [Group] [Preposition Group]*
 
 VerbPair: Verb [Adverb]
 

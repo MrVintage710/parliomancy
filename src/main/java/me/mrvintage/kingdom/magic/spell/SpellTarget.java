@@ -1,5 +1,10 @@
 package me.mrvintage.kingdom.magic.spell;
 
+import net.minecraft.server.world.ServerWorld;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class SpellTarget<T> {
 
     private T target;
@@ -16,6 +21,10 @@ public class SpellTarget<T> {
 
     public SpellTargetType getType() {
         return type;
+    }
+
+    public TargetProvider toProvider() {
+        return (source, serverWorld) -> Arrays.asList(this);
     }
 
     public boolean is(SpellTargetType type) {

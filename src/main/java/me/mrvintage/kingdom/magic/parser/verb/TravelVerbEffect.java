@@ -5,12 +5,14 @@ import me.mrvintage.kingdom.progresion.ProgressionManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import java.util.Optional;
+
 import static me.mrvintage.kingdom.magic.parser.preposition.SpellPreposition.*;
 import static me.mrvintage.kingdom.magic.spell.SpellTargetType.*;
 
 public class TravelVerbEffect implements SpellEffect {
     @Override
-    public int getCost(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList) {
+    public int getCost(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList, Optional<SpellEffectModifier> modifier) {
         if(target.is(POSITION)) return -1;
 
         if(prepositionList.size() == 1) {
@@ -42,7 +44,7 @@ public class TravelVerbEffect implements SpellEffect {
     }
 
     @Override
-    public boolean execute(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList) {
+    public boolean execute(SpellTarget target, SpellTarget source, SpellPrepositionList prepositionList, Optional<SpellEffectModifier> modifier) {
         if(prepositionList.size() == 1) {
             if(prepositionList.checkIndex(0, TO, POSITION)) {
                 var position = (SpellPositionTarget) prepositionList.getGroup(0).first().getTarget();
